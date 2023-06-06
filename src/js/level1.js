@@ -1,10 +1,10 @@
 import { Timer, Scene, Vector, RotationType} from "excalibur"
 import { Terrain } from './terrain'
 import { playercharacter } from './playercharacter.js'
-import { projectile} from "./projectile.js";
 import { Healthbar } from './healthbar'
 import { CurrentScore } from "./currentscore.js";
-import { Enemy } from "./enemy";
+import { SmallEnemy } from "./smallenemy";
+import { BigEnemy } from "./bigenemy";
 
 export class Level1 extends Scene {
 
@@ -16,7 +16,6 @@ export class Level1 extends Scene {
     enemycounter
     engine
 
-    enemyBulletTimer
     enemySpawnTimer
     spawncounter
 
@@ -26,45 +25,49 @@ export class Level1 extends Scene {
 
     onInitialize(engine){
         this.engine = engine
+        console.log("initiliased")
     }
 
     startLevel(engine){
+        console.log("started building level")
         this.enemycounter = 0
         this.currentscore = 0
 
         this.spawncounter = 2000
-        this.enemyBulletTimer = new Timer({
-            fcn: () => this.spawnEnemy(),
-            repeats: true,
-            interval: this.spawncounter
-        })
         
+        console.log(1)
         this.enemySpawnTimer = new Timer({
             fcn: () => this.spawnEnemyUnit(),
             repeats: true,
-            interval: 1000
+            interval: this.spawncounter
         })
 
-        this.add(this.enemyBulletTimer)
+        console.log(2)
         this.add(this.enemySpawnTimer)
 
-        this.enemyBulletTimer.start()
+        console.log(3)
         this.enemySpawnTimer.start()
 
+        console.log(4)
         const ground = new Terrain()
         this.add(ground)
 
+        console.log(5)
         this.playerCharacter = new playercharacter()
         this.add(this.playerCharacter)
 
+        console.log(6)
         this.healthbar = new Healthbar(0)
         this.add(this.healthbar)
-                
+        
+        console.log(7)
         this.score = new CurrentScore(this.currentscore)
         this.add(this.score)
+
+        console.log("finished building level")
     }
 
-    onActivate(ctx, engine){
+    onActivate(ctx){
         this.startLevel(this.engine)
         console.log('start level')
     }
@@ -74,30 +77,26 @@ export class Level1 extends Scene {
         console.log("clear level")
     }
 
-    onPreUpdate(engine){
+    onPreUpdate(){
 
         this.spawncounter = this.spawncounter -0.5
-        this.enemyBulletTimer.interval = this.spawncounter
+        this.enemySpawnTimer.interval = this.spawncounter
 
         if(this.spawncounter < 150){
             this.spawncounter = 150
         }
     }
 
-    spawnEnemy(){
-        let direction = 1
-        let startpoint = 0
-        if(Math.random() < 0.5){
-            direction = -1
-            startpoint = 1300
-        }
-        let enemyProjectile = new projectile(0 + startpoint ,(Math.random() * 400) + 75, 300 * direction, 0, 0, 200)
-        this.add(enemyProjectile)
-    }
-
     spawnEnemyUnit(){
+        console.log(this.enemycounter)
         if(this.enemycounter < 5){
-            let enemy = new Enemy(200)
+            console.log('een enemy is in leven')
+            let enemy
+            if(Math.random() < 0.2){
+                enemy = new BigEnemy()
+            } else {
+                enemy = new SmallEnemy()
+            }
             this.add(enemy)
             this.enemycounter = this.enemycounter + 1
         }

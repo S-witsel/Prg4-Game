@@ -49,9 +49,6 @@ export class projectile extends Actor{
     }
 
     onPreUpdate(){
-
-
-
         this.on('exitviewport', (event) => {
             this.kill()
         })

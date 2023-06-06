@@ -72,8 +72,6 @@ export class CurrentScore extends Actor{
     updateScore(num, engine){
         this.formatScore(num)
 
-        console.log(this.scorearray)
-
         if(this.numberarray[0].number != this.scorearray[0]){
             this.number1.kill()
             this.number1 = new ScoreNumber(550,40, this.scorearray[0])
@@ -104,8 +102,6 @@ export class CurrentScore extends Actor{
             this.number6 = new ScoreNumber(900,40, this.scorearray[5])
             engine.currentScene.add(this.number6)
         }
-
-        console.log(this.numberarray)
 }
 
     formatScore(num){

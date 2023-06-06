@@ -17,7 +17,7 @@ export class playercharacter extends Actor{
     health
 
     constructor(){
-        super({width:Resources.Player.width, height:Resources.Player.height})
+        super({radius: 50})
     }
 
     onInitialize(engine){
@@ -96,7 +96,7 @@ export class playercharacter extends Actor{
         //Shooting code
         //playerTimer
         this.counter = this.counter + delta
-        if(this.counter > 30){
+        if(this.counter > 200){
              this.canShoot = true
         }
         if(this.health < 10){

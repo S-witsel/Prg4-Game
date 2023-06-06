@@ -1,38 +1,29 @@
 import { Actor, Vector } from "excalibur";
-import { Resources } from "./resources";
 
 export class Enemy extends Actor{
+
+    health
 
     flyspeed
 
     startxpos
     startypos
 
+    shootdirectionx
+    shootdirectiony
+
     direction
+
     isShooting
+    canshoot
+    shootcooldown
+
+    shootinterval
+    deathjump
 
     constructor(flyspeed){
-        super()
+        super({radius: 50})
         this.flyspeed = flyspeed
-    }
-
-    onInitialize(){
-        this.onSpawn()
-        this.graphics.use(Resources.Enemy1.toSprite())
-    }
-
-    onPreUpdate(){
-        if(this.direction < 0 && this.pos.x < 1150){
-            this.bobAndWeave(this.flyspeed)
-            this.pos.x = this.pos.x + 1
-        }
-        if(this.direction > 0 && this.pos.x > 150){
-            this.bobAndWeave(this.flyspeed)
-            this.pos.x = this.pos.x - 1
-        }
-        if(this.pos.y < 125 || this.pos.y > 475){
-            this.vel = new Vector(this.vel.x, this.vel.y * -1)
-        }
     }
 
     onSpawn(){
@@ -48,6 +39,7 @@ export class Enemy extends Actor{
         this.startypos = (Math.random() * 380) + 80
         this.pos = new Vector(this.startxpos, this.startypos)
         this.vel = new Vector(this.direction, 0)
+        this.shootcooldown = 0
     }
 
     bobAndWeave(flyspeed){
