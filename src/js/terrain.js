@@ -10,7 +10,7 @@ export class Terrain extends Actor{
     onInitialize(){
         this.graphics.use(Resources.Terrain.toSprite())
         this.pos = new Vector(500,550)
-        this.vel = new Vector(-800,0)
+        this.vel = new Vector(-500,0)
     }
 
     onPreUpdate(){

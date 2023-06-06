@@ -1,7 +1,6 @@
 import { Actor, Engine, Vector, Input, Timer } from "excalibur";
 import { Resources, ResourceLoader } from './resources.js'
 import { projectile } from "./projectile.js";
-import { Level1 } from "./level1.js";
 
 export class playercharacter extends Actor{
 
@@ -97,7 +96,7 @@ export class playercharacter extends Actor{
         //Shooting code
         //playerTimer
         this.counter = this.counter + delta
-        if(this.counter > 300){
+        if(this.counter > 30){
              this.canShoot = true
         }
         if(this.health < 10){

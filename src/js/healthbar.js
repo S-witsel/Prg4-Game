@@ -1,7 +1,7 @@
 import { Actor, SpriteSheet, Vector } from "excalibur";
 import { Resources } from "./resources";
 
-export class healthbar extends Actor{
+export class Healthbar extends Actor{
 
     spritesheet
     state

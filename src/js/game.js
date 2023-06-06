@@ -59,6 +59,7 @@ import '../css/style.css'
 import { Level1 } from './level1'
 import { GameOver } from './gameover'
 import { ResourceLoader } from './resources'
+import { MainMenu } from './mainmenu'
 
 
 export class Game extends Engine{
@@ -76,8 +77,9 @@ export class Game extends Engine{
     startGame(){
         this.addScene('level1', new Level1())
         this.addScene('gameover', new GameOver())
+        this.addScene('mainmenu', new MainMenu())
 
-        this.goToScene('level1')
+        this.goToScene('mainmenu')
     }
 }
 

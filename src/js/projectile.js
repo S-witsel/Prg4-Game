@@ -20,7 +20,7 @@ export class projectile extends Actor{
         this.speedFactor = speedFactor
     }
 
-    onInitialize(){
+    onInitialize(engine){
         if(this.type === 0){
             this.graphics.use(Resources.EnemyProjectile.toSprite())
             this.on("collisionstart", (event) =>{
@@ -36,6 +36,8 @@ export class projectile extends Actor{
                 if(event.other.type === 0){
                     event.other.kill()
                     this.kill()
+                    engine.currentScene.currentscore = engine.currentScene.currentscore + 1
+                    engine.currentScene.score.updateScore(engine.currentScene.currentscore, engine)
                 }
             })
             this.scale = new Vector(2,2)
